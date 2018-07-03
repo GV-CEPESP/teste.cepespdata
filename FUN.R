@@ -18,6 +18,8 @@ teste_cepespdata <- function(anos, cargo){
   
   teste_votos(banco_ls)
   
+  teste_total_votos(banco_ls)
+  
   return(banco_ls)
 }
 
@@ -46,3 +48,15 @@ teste_votos <- function(lista){
     message("Os bancos não possuem a mesma soma de quantidade de votos.")
   }
 }
+
+teste_total_votos <- function(lista){
+  anos <- sort(unique(lista[[1]][["ANO_ELEICAO"]]))
+  for(i in seq_along(anos)){
+    for(j in seq_along(lista)){
+      sum_votos <- sum(lista[[j]]$QTDE_VOTOS[lista[[j]]$ANO_ELEICAO == anos[[i]]])
+      
+      message("Em ", anos[[i]], " a posição ", j, " da lista possui ", sum_votos, " votos.")
+    }
+  }
+}
+

@@ -4,10 +4,18 @@ library(tidyverse)
 library(cepespR)
 source("FUN.R")
 
-# 1. Carregando os Bancos -------------------------------------------------
+anos_munic <- seq(2000, 2016, by = 4)
 
-anos <- seq(2000, 2016, by = 4)
+# 1. Vereador -------------------------------------------------------------
+
+cargo <- 13
+
+banco <- teste_cepespdata(anos_munic, cargo)
+
+
+# 2. Prefeito -------------------------------------------------------------
 
 cargo <- 11
 
-banco <- teste_cepespdata(anos, cargo)
+banco <- teste_cepespdata(anos_munic, cargo)
+
