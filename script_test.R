@@ -24,12 +24,13 @@ banco <- teste_cepespdata(anos_munic, cargo)
 
 # Aparentemente, tudo ok.
 
-
 # 3. Deputado Estadual ----------------------------------------------------
 
 cargo <- 7
 
 banco <- teste_cepespdata(anos_gerais, cargo)
+
+# Aparentemente, tudo ok.
 
 # 4. Governador -----------------------------------------------------------
 
@@ -37,3 +38,4 @@ cargo <- 3
 
 banco <- teste_cepespdata(anos_gerais, cargo)
 
+# Aparentemente, tudo ok.

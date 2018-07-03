@@ -1,3 +1,7 @@
+v <- "http://agencia.tse.jus.br/estatistica/sead/odsele/detalhe_votacao_secao/detalhe_votacao_secao_2016.zip"
+
+f <- "http://agencia.tse.jus.br/estatistica/sead/odsele/consulta_vagas/consulta_vagas_1998.zip"
+
 teste_cepespdata <- function(anos, cargo){
   
   agregacao <- c(1,2,4,5,6,7,8)
