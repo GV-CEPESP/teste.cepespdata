@@ -12,6 +12,20 @@ teste_cepespdata <- function(anos, cargo){
     banco_ls[[i]] <- purrr::pmap(args, get_votes, regional_aggregation = agregacao[[i]])
   }
   
+  for(i in seq_along(banco_ls)){
+    for(j in seq_along(banco_ls[[1]])){
+      banco_ls[[i]][[j]] <- banco_ls[[i]][[j]] %>% 
+        select(ANO_ELEICAO,
+               SIGLA_UE,
+               NUM_TURNO,
+               DESCRICAO_ELEICAO,
+               CODIGO_CARGO,
+               DESCRICAO_CARGO,
+               NUMERO_CANDIDATO,
+               QTDE_VOTOS)
+    }
+  }
+  
   banco_ls <- map(banco_ls, bind_rows)
   
   teste_repeticoes(banco_ls)
