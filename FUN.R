@@ -1,6 +1,3 @@
-v <- "http://agencia.tse.jus.br/estatistica/sead/odsele/detalhe_votacao_secao/detalhe_votacao_secao_2016.zip"
-
-f <- "http://agencia.tse.jus.br/estatistica/sead/odsele/consulta_vagas/consulta_vagas_1998.zip"
 
 teste_cepespdata <- function(anos, cargo){
   
@@ -13,7 +10,7 @@ teste_cepespdata <- function(anos, cargo){
     args <- expand.grid(year     = anos,
                         position = cargo)
     
-    banco_ls[[i]] <- purrr::pmap(args, get_votes, regional_aggregation = agregacao[[i]])
+    banco_ls[[i]] <- purrr::pmap(args, cepespR::get_votes, regional_aggregation = agregacao[[i]])
   }
   
   for(i in seq_along(banco_ls)){

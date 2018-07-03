@@ -1,0 +1,7 @@
+"17/05/2018";"04:02:42";"2014";"Eleições Gerais 2014";"AC";"AC";"ACRE";"3";"Governador";"1"
+"17/05/2018";"04:02:42";"2014";"Eleições Gerais 2014";"AC";"AC";"ACRE";"4";"Vice-governador";"1"
+"17/05/2018";"04:02:42";"2014";"Eleições Gerais 2014";"AC";"AC";"ACRE";"5";"Senador";"1"
+"17/05/2018";"04:02:42";"2014";"Eleições Gerais 2014";"AC";"AC";"ACRE";"6";"Deputado Federal";"8"
+"17/05/2018";"04:02:42";"2014";"Eleições Gerais 2014";"AC";"AC";"ACRE";"7";"Deputado Estadual";"24"
+"17/05/2018";"04:02:42";"2014";"Eleições Gerais 2014";"AC";"AC";"ACRE";"9";"1º Suplente";"1"
+"17/05/2018";"04:02:42";"2014";"Eleições Gerais 2014";"AC";"AC";"ACRE";"10";"2º Suplente";"1"
