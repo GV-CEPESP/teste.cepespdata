@@ -4,7 +4,7 @@ library(stringr)
 library(readr)
 library(tidyverse)
 
-
+482
 url_secao <- "http://agencia.tse.jus.br/estatistica/sead/odsele/detalhe_votacao_secao/detalhe_votacao_secao_2016.zip"
 
 
@@ -130,7 +130,7 @@ names(dados_teste_secao)<- c("DATA_GERACAO", "HORA_GERACAO", "ANO_ELEICAO", "NUM
                              "QT_VOTOS_NOMINAIS", "QT_VOTOS_BRANCOS", "QT_VOTOS_NULOS", "QT_VOTOS_LEGENDA", "QT_VOTOS_ANULADOS_APU_SEP")
 
 
-# 4.2.Renomeia as variaveis dos dados_vagas -------------------------------
+### 4.2.Renomeia as variaveis dos dados_vagas -------------------------------
 
 
 names(dados_teste_vagas) <- c("DATA_GERACAO", "HORA_GERACAO", "ANO_ELEICAO","DESCRICAO_ELEICAO", "SIGLA_UF",
