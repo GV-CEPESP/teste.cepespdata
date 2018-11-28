@@ -22,7 +22,7 @@ No Linux, abra um jupyter notebook mediante o comando `jupyter notebook`.
 
 2. script_molde: cria dois moldes a partir dos bancos baixados para serem comparados com as requisições do CEPESPData.
 
-3. script_teste: define a classe `teste_cepespdata`, que pode ser utilizada para testar automaticamente todos os anos, cargos, agregações políticas e regionais.
+3. cepespdata.py: define a classe `teste_cepespdata`, que pode ser utilizada para testar automaticamente todos os anos, cargos, agregações políticas e regionais. Deve ser requisitado como módulo como módulo: `from teste_cepespdata import teste_cepespdata`.
 
 ## Autores
 

@@ -19,6 +19,7 @@ class teste_cepespdata:
     ############################################################################
     ## 1. Construtor
     def __init__(self, ano, cargo, agregacao_politica = 2, agregacao_regional = 0, test = False):
+        print("Ano: {}\nCargo: {} \nBanco Teste: {}\n".format(ano, cargo, test))
         
         if test:
             self.u0 = "http://test.cepesp.io/api/consulta/"
@@ -29,14 +30,13 @@ class teste_cepespdata:
         self.cargo = str(cargo)
         self.agregacao_politica = str(agregacao_politica)
         self.agregacao_regional = str(agregacao_regional)
-        self.download_candidatos()
-        self.download_eleicoes()
     
     ############################################################################
     ############################################################################
     # 2. Funções para Download dos Bancos
     
     def download_eleicoes(self):
+        print("Downloading Eleições - BETA...")
         colunas = 'c[]=ANO_ELEICAO&c[]=NUM_TURNO&c[]=COD_MUN_TSE&c[]=COD_MUN_IBGE&c[]=NOME_MUNICIPIO&c[]=UF&c[]=CODIGO_CARGO&c[]=DESCRICAO_CARGO&c[]=NOME_CANDIDATO&c[]=NUMERO_CANDIDATO&c[]=CPF_CANDIDATO&c[]=DES_SITUACAO_CANDIDATURA&c[]=NUMERO_PARTIDO&c[]=SIGLA_PARTIDO&c[]=NUM_TITULO_ELEITORAL_CANDIDATO&c[]=QTDE_VOTOS'
         u0 = self.u0 + "/tse?format=csv&cargo=" + \
                 self.cargo + "&anos[]=" + \
@@ -44,12 +44,13 @@ class teste_cepespdata:
                 self.agregacao_regional+"&agregacao_politica=" + \
                 self.agregacao_politica+"&brancos=1&nulos=1&" +\
                 colunas
-        
+                
         eleicoes_df = pd.read_csv(u0, sep = ",", dtype = {'num_titulo_eleitoral_candidato': str,
                                                           'cpf_candidato': str})
         self.banco_eleicoes = eleicoes_df
         
     def download_candidatos(self):
+        print("Downloading Candidatos...")
         u0 = self.u0 + "candidatos?format=csv&cargo="+self.cargo+"&anos[]="+self.ano
         candidatos_df = pd.read_csv(u0, sep = ',',  dtype = {'num_titulo_eleitoral_candidato': str,
                                                              'cpf_candidato': str})
@@ -117,7 +118,18 @@ class teste_cepespdata:
     
     ## 3.5. (ALFA) TESTE DO NÙMERO TOTAL DE VOTOS
     def teste_votos(self):
-        pass
+        molde = pd.read_csv("data/moldes/molde_secao.csv")
+        
+        qtde_aptos_1turno = molde[(molde.ANO_ELEICAO == int(self.ano)) & (molde.CODIGO_CARGO == int(self.cargo)) & (molde.NUM_TURNO == 1)][['QTD_APTOS']].sum()
+        qtde_comparecimento_1turno = molde[(molde.ANO_ELEICAO == int(self.ano)) & (molde.CODIGO_CARGO == int(self.cargo)) & (molde.NUM_TURNO == 1)][['QTD_COMPARECIMENTO']].sum()
+        
+        qtde_aptos_2turno = molde[(molde.ANO_ELEICAO == int(self.ano)) & (molde.CODIGO_CARGO == int(self.cargo)) & (molde.NUM_TURNO == 2)][['QTD_APTOS']].sum()
+        qtde_comparecimento_2turno = molde[(molde.ANO_ELEICAO == int(self.ano)) & (molde.CODIGO_CARGO == int(self.cargo)) & (molde.NUM_TURNO == 2)][['QTD_COMPARECIMENTO']].sum()
+
+        self.qtde_aptos_1turno = int(qtde_aptos_1turno)
+        self.qtde_comparecimento_1turno = int(qtde_comparecimento_1turno)
+        self.qtde_aptos_2turno = int(qtde_aptos_2turno)
+        self.qtde_comparecimento_2turno = int(qtde_comparecimento_2turno)
     
     ## 3.6. Quantidade de Eleitos e de Vagas
     def teste_eleitos(self):
@@ -141,7 +153,8 @@ class teste_cepespdata:
         self.teste_votos_brancos_nulos()
         self.teste_cpf_titulos()
         self.teste_voto_legenda()
-        if self.agregacao_regional == 6: # Teste n de cidades apenas se agreg. reg. for municipal
+        self.teste_votos()
+        if self.agregacao_regional == '6': # Teste n de cidades apenas se agreg. reg. for municipal
             self.teste_cidades()
     
     ## 4.2. Teste para o Banco de Candidatos
@@ -149,9 +162,13 @@ class teste_cepespdata:
         self.teste_eleitos()
     
     ## 4.3. Teste para todos os bancos definidos
-    def call_teste_geral(self):
-        print("Starting test...\nyear: " + self.ano + "\nposition: " + self.cargo)
-        
+    def call_teste_geral(self): 
+        print("Starting test...")
+        if not hasattr(self, 'banco_eleicoes'):
+            self.download_eleicoes()
+        if not hasattr(self, 'banco_candidatos'):
+            self.download_candidatos()
+            
         self.call_teste_eleicoes()
         self.call_teste_candidatos()
     
