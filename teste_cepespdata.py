@@ -133,6 +133,10 @@ class teste_cepespdata:
         self.qtde_cidades_ibge = n_unique_ibge
         self.qtde_cidades_tse = n_unique_tse
         self.qtde_cidades_esperadas = qtde_cidades_esperadas
+        
+    def teste_ufs(self):
+        qtde_ufs = len(set(self.banco_eleicoes.uf))
+        self.qtde_ufs = qtde_ufs
 
     ## 3.4. Proporção de CPFs e Títulos Válidos
     def teste_cpf_titulos(self):
@@ -199,8 +203,9 @@ class teste_cepespdata:
         self.teste_votos()
         
         # Testes de acordo com agregacao regional
-        if int(self.agregacao_regional) >= 6:
+        if int(self.agregacao_regional) >= 2:
             self.teste_votos_uf()
+            self.teste_ufs()
             
         if int(self.agregacao_regional) >= 6: 
             self.teste_cidades()
