@@ -11,7 +11,6 @@
 
 import pandas as pd
 import numpy as np
-import requests
 import os
 
 class teste_cepespdata:
@@ -30,30 +29,53 @@ class teste_cepespdata:
         self.cargo = str(cargo)
         self.agregacao_politica = str(agregacao_politica)
         self.agregacao_regional = str(agregacao_regional)
+        
+        self.create_requests()
     
     ############################################################################
     ############################################################################
     # 2. Funções para Download dos Bancos
     
+    def create_requests(self):
+        url_eleicoes = self.u0 + "tse?format=csv&cargo=" + \
+                       self.cargo + "&anos[]=" + \
+                       self.ano+"&agregacao_regional=" + \
+                       self.agregacao_regional+"&agregacao_politica=" + \
+                       self.agregacao_politica+"&brancos=1&nulos=1&"
+        
+        self.url_eleicoes = url_eleicoes
+        
+        url_candidatos = self.u0 + "candidatos?format=csv&cargo="+self.cargo+"&anos[]="+self.ano
+        
+        self.url_candidatos = url_candidatos
+        
+        url_votos = self.u0 + "votos?format=csv&brancos=1&nulos=1" +\
+                              "&anos="+self.ano + \
+                              "&cargo="+self.cargo + \
+                              "&agregacao_regional"+self.agregacao_regional
+        
+        self.url_votos = url_votos
+        
+        url_coligacao = self.u0 + "legendas?format=csv&cargo="+self.cargo+"&anos[]="+self.ano
+        
+        self.url_coligacao = url_coligacao
+    
     def download_eleicoes(self):
         print("Downloading Eleições - BETA...")
-        colunas = 'c[]=ANO_ELEICAO&c[]=NUM_TURNO&c[]=COD_MUN_TSE&c[]=COD_MUN_IBGE&c[]=NOME_MUNICIPIO&c[]=UF&c[]=CODIGO_CARGO&c[]=DESCRICAO_CARGO&c[]=NOME_CANDIDATO&c[]=NUMERO_CANDIDATO&c[]=CPF_CANDIDATO&c[]=DES_SITUACAO_CANDIDATURA&c[]=NUMERO_PARTIDO&c[]=SIGLA_PARTIDO&c[]=NUM_TITULO_ELEITORAL_CANDIDATO&c[]=QTDE_VOTOS'
-        u0 = self.u0 + "/tse?format=csv&cargo=" + \
-                self.cargo + "&anos[]=" + \
-                self.ano+"&agregacao_regional=" + \
-                self.agregacao_regional+"&agregacao_politica=" + \
-                self.agregacao_politica+"&brancos=1&nulos=1&" +\
-                colunas
                 
-        eleicoes_df = pd.read_csv(u0, sep = ",", dtype = {'num_titulo_eleitoral_candidato': str,
-                                                          'cpf_candidato': str})
+        eleicoes_df = pd.read_csv(self.url_eleicoes, sep = ",", 
+                                  dtype = {'num_titulo_eleitoral_candidato': str,
+                                           'cpf_candidato': str})
+        
         self.banco_eleicoes = eleicoes_df
         
     def download_candidatos(self):
         print("Downloading Candidatos...")
-        u0 = self.u0 + "candidatos?format=csv&cargo="+self.cargo+"&anos[]="+self.ano
-        candidatos_df = pd.read_csv(u0, sep = ',',  dtype = {'num_titulo_eleitoral_candidato': str,
-                                                             'cpf_candidato': str})
+        
+        candidatos_df = pd.read_csv(self.url_candidatos, sep = ',',  
+                                    dtype = {'num_titulo_eleitoral_candidato': str,
+                                             'cpf_candidato': str})
+        
         self.banco_candidatos = candidatos_df
     
     ############################################################################
@@ -98,11 +120,19 @@ class teste_cepespdata:
     def teste_cidades(self):
         banco = self.banco_eleicoes
         
+        molde = pd.read_csv('data/moldes/molde_cidades.csv')
+    
+        
+        qtde_cidades_esperadas = molde[(molde.ano_eleicao == int(self.ano)) & (molde.codigo_cargo == int(self.cargo))][['codigo_municipio']]
+        
+        qtde_cidades_esperadas = int(qtde_cidades_esperadas.iloc[0])
+        
         n_unique_ibge = len(set(banco.cod_mun_ibge))
         n_unique_tse = len(set(banco.cod_mun_tse))
         
         self.qtde_cidades_ibge = n_unique_ibge
         self.qtde_cidades_tse = n_unique_tse
+        self.qtde_cidades_esperadas = qtde_cidades_esperadas
 
     ## 3.4. Proporção de CPFs e Títulos Válidos
     def teste_cpf_titulos(self):
@@ -120,17 +150,30 @@ class teste_cepespdata:
     def teste_votos(self):
         molde = pd.read_csv("data/moldes/molde_secao.csv")
         
-        qtde_aptos_1turno = molde[(molde.ANO_ELEICAO == int(self.ano)) & (molde.CODIGO_CARGO == int(self.cargo)) & (molde.NUM_TURNO == 1)][['QTD_APTOS']].sum()
-        qtde_comparecimento_1turno = molde[(molde.ANO_ELEICAO == int(self.ano)) & (molde.CODIGO_CARGO == int(self.cargo)) & (molde.NUM_TURNO == 1)][['QTD_COMPARECIMENTO']].sum()
+        qtde_aptos_1turno = molde[(molde.ano_eleicao == int(self.ano)) & (molde.codigo_cargo == int(self.cargo)) & (molde.num_turno == 1)][['qtd_aptos']].sum()
         
-        qtde_aptos_2turno = molde[(molde.ANO_ELEICAO == int(self.ano)) & (molde.CODIGO_CARGO == int(self.cargo)) & (molde.NUM_TURNO == 2)][['QTD_APTOS']].sum()
-        qtde_comparecimento_2turno = molde[(molde.ANO_ELEICAO == int(self.ano)) & (molde.CODIGO_CARGO == int(self.cargo)) & (molde.NUM_TURNO == 2)][['QTD_COMPARECIMENTO']].sum()
+        qtde_comparecimento_1turno = molde[(molde.ano_eleicao == int(self.ano)) & (molde.codigo_cargo == int(self.cargo)) & (molde.num_turno == 1)][['qtd_comparecimento']].sum()
+        
+        qtde_aptos_2turno = molde[(molde.ano_eleicao == int(self.ano)) & (molde.codigo_cargo == int(self.cargo)) & (molde.num_turno == 2)][['qtd_aptos']].sum()
+        
+        qtde_comparecimento_2turno = molde[(molde.ano_eleicao == int(self.ano)) & (molde.codigo_cargo == int(self.cargo)) & (molde.num_turno == 2)][['qtd_comparecimento']].sum()
 
         self.qtde_aptos_1turno = int(qtde_aptos_1turno)
         self.qtde_comparecimento_1turno = int(qtde_comparecimento_1turno)
         self.qtde_aptos_2turno = int(qtde_aptos_2turno)
         self.qtde_comparecimento_2turno = int(qtde_comparecimento_2turno)
-    
+        
+    def teste_votos_uf(self):
+        molde = pd.read_csv("data/moldes/molde_secao.csv")
+        molde = molde[(molde.ano_eleicao == int(self.ano)) & (molde.codigo_cargo == int(self.cargo))]
+
+        qtde_votos_uf_comparecimento = molde[['ano_eleicao', 'num_turno', 'uf', 'qtd_comparecimento']].groupby(['ano_eleicao', 'num_turno', 'uf']).sum()
+        qtde_votos_uf_aptos = molde[['ano_eleicao', 'num_turno', 'uf', 'qtd_aptos']].groupby(['ano_eleicao', 'num_turno', 'uf']).sum()
+                
+        qtde_votos_uf = self.banco_eleicoes[['ano_eleicao', 'num_turno', 'uf', 'qtde_votos']].groupby(['ano_eleicao', 'num_turno', 'uf']).sum()
+                
+        self.qtde_votos_uf =  qtde_votos_uf.join(qtde_votos_uf_aptos).join(qtde_votos_uf_comparecimento)
+            
     ## 3.6. Quantidade de Eleitos e de Vagas
     def teste_eleitos(self):
        
@@ -154,7 +197,12 @@ class teste_cepespdata:
         self.teste_cpf_titulos()
         self.teste_voto_legenda()
         self.teste_votos()
-        if self.agregacao_regional == '6': # Teste n de cidades apenas se agreg. reg. for municipal
+        
+        # Testes de acordo com agregacao regional
+        if int(self.agregacao_regional) >= 6:
+            self.teste_votos_uf()
+            
+        if int(self.agregacao_regional) >= 6: 
             self.teste_cidades()
     
     ## 4.2. Teste para o Banco de Candidatos

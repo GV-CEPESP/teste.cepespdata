@@ -1,0 +1,263 @@
+========================================================== test session starts ===========================================================
+platform linux -- Python 3.7.0, pytest-4.0.0, py-1.7.0, pluggy-0.8.0
+rootdir: /home/rafael/Documents/CEPESP/teste.cepespdata, inifile:
+plugins: remotedata-0.3.1, openfiles-0.3.0, doctestplus-0.1.3, arraydiff-0.2
+collected 12 items
+
+test.py F.FFFF.F.FFF                                                                                                               [100%]
+
+================================================================ FAILURES ================================================================
+_______________________________________________________ test_cepespdata[2006-1-6] ________________________________________________________
+
+ano = 2006, cargo = 1, agregacao_regional = 6
+
+    @pytest.mark.parametrize('ano, cargo, agregacao_regional',
+                             [(a,b,c) for a in range(2006,2022,4) for b in [1,3,6] for c in [6]])
+    
+    def test_cepespdata(ano, cargo, agregacao_regional):
+        inst = teste_cepespdata(ano, cargo, agregacao_regional = agregacao_regional, test = False)
+        inst.call_teste_geral()
+    
+        assert inst.qtde_eleitos == inst.qtde_vagas_disponiveis
+    
+        assert math.isclose(inst.qtde_votos_total_1turno, inst.qtde_comparecimento_1turno, rel_tol=0.01)
+        assert math.isclose(inst.qtde_votos_total_2turno, inst.qtde_comparecimento_2turno, rel_tol=0.01)
+    
+        if agregacao_regional == 6:
+>           assert inst.qtde_cidades_tse  == inst.qtde_cidades_esperadas
+E           assert 5565 == 5642
+E            +  where 5565 = <teste_cepespdata.teste_cepespdata object at 0x7fceb4ffbeb8>.qtde_cidades_tse
+E            +  and   5642 = <teste_cepespdata.teste_cepespdata object at 0x7fceb4ffbeb8>.qtde_cidades_esperadas
+
+test.py:18: AssertionError
+---------------------------------------------------------- Captured stdout call ----------------------------------------------------------
+Ano: 2006
+Cargo: 1 
+Banco Teste: False
+
+Starting test...
+Downloading Eleições - BETA...
+Downloading Candidatos...
+_______________________________________________________ test_cepespdata[2006-6-6] ________________________________________________________
+
+ano = 2006, cargo = 6, agregacao_regional = 6
+
+    @pytest.mark.parametrize('ano, cargo, agregacao_regional',
+                             [(a,b,c) for a in range(2006,2022,4) for b in [1,3,6] for c in [6]])
+    
+    def test_cepespdata(ano, cargo, agregacao_regional):
+        inst = teste_cepespdata(ano, cargo, agregacao_regional = agregacao_regional, test = False)
+        inst.call_teste_geral()
+    
+>       assert inst.qtde_eleitos == inst.qtde_vagas_disponiveis
+E       assert 434 == 513
+E        +  where 434 = <teste_cepespdata.teste_cepespdata object at 0x7fceb249b8d0>.qtde_eleitos
+E        +  and   513 = <teste_cepespdata.teste_cepespdata object at 0x7fceb249b8d0>.qtde_vagas_disponiveis
+
+test.py:12: AssertionError
+---------------------------------------------------------- Captured stdout call ----------------------------------------------------------
+Ano: 2006
+Cargo: 6 
+Banco Teste: False
+
+Starting test...
+Downloading Eleições - BETA...
+Downloading Candidatos...
+_______________________________________________________ test_cepespdata[2010-1-6] ________________________________________________________
+
+ano = 2010, cargo = 1, agregacao_regional = 6
+
+    @pytest.mark.parametrize('ano, cargo, agregacao_regional',
+                             [(a,b,c) for a in range(2006,2022,4) for b in [1,3,6] for c in [6]])
+    
+    def test_cepespdata(ano, cargo, agregacao_regional):
+        inst = teste_cepespdata(ano, cargo, agregacao_regional = agregacao_regional, test = False)
+        inst.call_teste_geral()
+    
+        assert inst.qtde_eleitos == inst.qtde_vagas_disponiveis
+    
+        assert math.isclose(inst.qtde_votos_total_1turno, inst.qtde_comparecimento_1turno, rel_tol=0.01)
+        assert math.isclose(inst.qtde_votos_total_2turno, inst.qtde_comparecimento_2turno, rel_tol=0.01)
+    
+        if agregacao_regional == 6:
+>           assert inst.qtde_cidades_tse  == inst.qtde_cidades_esperadas
+E           assert 5688 == 5720
+E            +  where 5688 = <teste_cepespdata.teste_cepespdata object at 0x7fce92285128>.qtde_cidades_tse
+E            +  and   5720 = <teste_cepespdata.teste_cepespdata object at 0x7fce92285128>.qtde_cidades_esperadas
+
+test.py:18: AssertionError
+---------------------------------------------------------- Captured stdout call ----------------------------------------------------------
+Ano: 2010
+Cargo: 1 
+Banco Teste: False
+
+Starting test...
+Downloading Eleições - BETA...
+Downloading Candidatos...
+_______________________________________________________ test_cepespdata[2010-3-6] ________________________________________________________
+
+ano = 2010, cargo = 3, agregacao_regional = 6
+
+    @pytest.mark.parametrize('ano, cargo, agregacao_regional',
+                             [(a,b,c) for a in range(2006,2022,4) for b in [1,3,6] for c in [6]])
+    
+    def test_cepespdata(ano, cargo, agregacao_regional):
+        inst = teste_cepespdata(ano, cargo, agregacao_regional = agregacao_regional, test = False)
+        inst.call_teste_geral()
+    
+        assert inst.qtde_eleitos == inst.qtde_vagas_disponiveis
+    
+>       assert math.isclose(inst.qtde_votos_total_1turno, inst.qtde_comparecimento_1turno, rel_tol=0.01)
+E       assert False
+E        +  where False = <built-in function isclose>(143527669, 111037520, rel_tol=0.01)
+E        +    where <built-in function isclose> = math.isclose
+E        +    and   143527669 = <teste_cepespdata.teste_cepespdata object at 0x7fceaec92da0>.qtde_votos_total_1turno
+E        +    and   111037520 = <teste_cepespdata.teste_cepespdata object at 0x7fceaec92da0>.qtde_comparecimento_1turno
+
+test.py:14: AssertionError
+---------------------------------------------------------- Captured stdout call ----------------------------------------------------------
+Ano: 2010
+Cargo: 3 
+Banco Teste: False
+
+Starting test...
+Downloading Eleições - BETA...
+Downloading Candidatos...
+_______________________________________________________ test_cepespdata[2010-6-6] ________________________________________________________
+
+ano = 2010, cargo = 6, agregacao_regional = 6
+
+    @pytest.mark.parametrize('ano, cargo, agregacao_regional',
+                             [(a,b,c) for a in range(2006,2022,4) for b in [1,3,6] for c in [6]])
+    
+    def test_cepespdata(ano, cargo, agregacao_regional):
+        inst = teste_cepespdata(ano, cargo, agregacao_regional = agregacao_regional, test = False)
+        inst.call_teste_geral()
+    
+>       assert inst.qtde_eleitos == inst.qtde_vagas_disponiveis
+E       assert 446 == 513
+E        +  where 446 = <teste_cepespdata.teste_cepespdata object at 0x7fceaeb3d908>.qtde_eleitos
+E        +  and   513 = <teste_cepespdata.teste_cepespdata object at 0x7fceaeb3d908>.qtde_vagas_disponiveis
+
+test.py:12: AssertionError
+---------------------------------------------------------- Captured stdout call ----------------------------------------------------------
+Ano: 2010
+Cargo: 6 
+Banco Teste: False
+
+Starting test...
+Downloading Eleições - BETA...
+Downloading Candidatos...
+_______________________________________________________ test_cepespdata[2014-3-6] ________________________________________________________
+
+ano = 2014, cargo = 3, agregacao_regional = 6
+
+    @pytest.mark.parametrize('ano, cargo, agregacao_regional',
+                             [(a,b,c) for a in range(2006,2022,4) for b in [1,3,6] for c in [6]])
+    
+    def test_cepespdata(ano, cargo, agregacao_regional):
+        inst = teste_cepespdata(ano, cargo, agregacao_regional = agregacao_regional, test = False)
+        inst.call_teste_geral()
+    
+>       assert inst.qtde_eleitos == inst.qtde_vagas_disponiveis
+E       assert 28 == 27
+E        +  where 28 = <teste_cepespdata.teste_cepespdata object at 0x7fceb4033940>.qtde_eleitos
+E        +  and   27 = <teste_cepespdata.teste_cepespdata object at 0x7fceb4033940>.qtde_vagas_disponiveis
+
+test.py:12: AssertionError
+---------------------------------------------------------- Captured stdout call ----------------------------------------------------------
+Ano: 2014
+Cargo: 3 
+Banco Teste: False
+
+Starting test...
+Downloading Eleições - BETA...
+Downloading Candidatos...
+_______________________________________________________ test_cepespdata[2018-1-6] ________________________________________________________
+
+ano = 2018, cargo = 1, agregacao_regional = 6
+
+    @pytest.mark.parametrize('ano, cargo, agregacao_regional',
+                             [(a,b,c) for a in range(2006,2022,4) for b in [1,3,6] for c in [6]])
+    
+    def test_cepespdata(ano, cargo, agregacao_regional):
+        inst = teste_cepespdata(ano, cargo, agregacao_regional = agregacao_regional, test = False)
+        inst.call_teste_geral()
+    
+        assert inst.qtde_eleitos == inst.qtde_vagas_disponiveis
+    
+>       assert math.isclose(inst.qtde_votos_total_1turno, inst.qtde_comparecimento_1turno, rel_tol=0.01)
+E       assert False
+E        +  where False = <built-in function isclose>(150025239, 117364654, rel_tol=0.01)
+E        +    where <built-in function isclose> = math.isclose
+E        +    and   150025239 = <teste_cepespdata.teste_cepespdata object at 0x7fceb3996748>.qtde_votos_total_1turno
+E        +    and   117364654 = <teste_cepespdata.teste_cepespdata object at 0x7fceb3996748>.qtde_comparecimento_1turno
+
+test.py:14: AssertionError
+---------------------------------------------------------- Captured stdout call ----------------------------------------------------------
+Ano: 2018
+Cargo: 1 
+Banco Teste: False
+
+Starting test...
+Downloading Eleições - BETA...
+Downloading Candidatos...
+_______________________________________________________ test_cepespdata[2018-3-6] ________________________________________________________
+
+ano = 2018, cargo = 3, agregacao_regional = 6
+
+    @pytest.mark.parametrize('ano, cargo, agregacao_regional',
+                             [(a,b,c) for a in range(2006,2022,4) for b in [1,3,6] for c in [6]])
+    
+    def test_cepespdata(ano, cargo, agregacao_regional):
+        inst = teste_cepespdata(ano, cargo, agregacao_regional = agregacao_regional, test = False)
+        inst.call_teste_geral()
+    
+        assert inst.qtde_eleitos == inst.qtde_vagas_disponiveis
+    
+>       assert math.isclose(inst.qtde_votos_total_1turno, inst.qtde_comparecimento_1turno, rel_tol=0.01)
+E       assert False
+E        +  where False = <built-in function isclose>(100163316, 117111572, rel_tol=0.01)
+E        +    where <built-in function isclose> = math.isclose
+E        +    and   100163316 = <teste_cepespdata.teste_cepespdata object at 0x7fceb28932e8>.qtde_votos_total_1turno
+E        +    and   117111572 = <teste_cepespdata.teste_cepespdata object at 0x7fceb28932e8>.qtde_comparecimento_1turno
+
+test.py:14: AssertionError
+---------------------------------------------------------- Captured stdout call ----------------------------------------------------------
+Ano: 2018
+Cargo: 3 
+Banco Teste: False
+
+Starting test...
+Downloading Eleições - BETA...
+Downloading Candidatos...
+_______________________________________________________ test_cepespdata[2018-6-6] ________________________________________________________
+
+ano = 2018, cargo = 6, agregacao_regional = 6
+
+    @pytest.mark.parametrize('ano, cargo, agregacao_regional',
+                             [(a,b,c) for a in range(2006,2022,4) for b in [1,3,6] for c in [6]])
+    
+    def test_cepespdata(ano, cargo, agregacao_regional):
+        inst = teste_cepespdata(ano, cargo, agregacao_regional = agregacao_regional, test = False)
+        inst.call_teste_geral()
+    
+        assert inst.qtde_eleitos == inst.qtde_vagas_disponiveis
+    
+>       assert math.isclose(inst.qtde_votos_total_1turno, inst.qtde_comparecimento_1turno, rel_tol=0.01)
+E       assert False
+E        +  where False = <built-in function isclose>(104384998, 117111570, rel_tol=0.01)
+E        +    where <built-in function isclose> = math.isclose
+E        +    and   104384998 = <teste_cepespdata.teste_cepespdata object at 0x7fceb3347e80>.qtde_votos_total_1turno
+E        +    and   117111570 = <teste_cepespdata.teste_cepespdata object at 0x7fceb3347e80>.qtde_comparecimento_1turno
+
+test.py:14: AssertionError
+---------------------------------------------------------- Captured stdout call ----------------------------------------------------------
+Ano: 2018
+Cargo: 6 
+Banco Teste: False
+
+Starting test...
+Downloading Eleições - BETA...
+Downloading Candidatos...
+=========================================== 9 failed, 3 passed, 6 warnings in 1110.68 seconds ============================================
