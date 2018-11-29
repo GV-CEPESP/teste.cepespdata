@@ -2,6 +2,7 @@ import pytest
 import math
 from teste_cepespdata import teste_cepespdata
 
+#teste parametrizado - significa que a gente já detalha aqui todos os testes - se quiser adicionar agregação regional é só colocar o numero
 @pytest.mark.parametrize('ano, cargo, agregacao_regional',
                          [(a,b,c) for a in range(2006,2022,4) for b in [1,3,6] for c in [6]])
 
