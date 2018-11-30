@@ -22,7 +22,7 @@ def test_cepespdata(ano, cargo, agregacao_regional):
     # Fonte: Detalhe seção do TSE
     
     if agregacao_regional >= 2:
-        assert inst.qtde_ufs == 27
+        assert inst.qtde_ufs == inst.qtde_ufs_esperada
     
     #######################################################
     # 3. Quantidade total de votos frente ao comparecimento com 1% de tolerância

@@ -135,8 +135,11 @@ class teste_cepespdata:
         self.qtde_cidades_esperadas = qtde_cidades_esperadas
         
     def teste_ufs(self):
-        qtde_ufs = len(set(self.banco_eleicoes.uf))
-        self.qtde_ufs = qtde_ufs
+        molde = pd.read_csv("data/moldes/molde_secao.csv")
+        molde = molde[(molde.ano_eleicao == int(self.ano)) & (molde.codigo_cargo == int(self.cargo))]
+        
+        self.qtde_ufs_esperada = sum(np.unique(molde.uf) != "VT") # Exclui voto em trânsito
+        self.qtde_ufs = len(set(self.banco_eleicoes.uf))
 
     ## 3.4. Proporção de CPFs e Títulos Válidos
     def teste_cpf_titulos(self):
