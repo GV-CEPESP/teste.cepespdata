@@ -1,6 +1,6 @@
 import pytest
 import math
-from teste_cepespdata_mun import teste_cepespdata
+from teste_cepespdata import teste_cepespdata
 
 #teste parametrizado - significa que a gente já detalha aqui todos os testes - se quiser adicionar agregação regional é só colocar o numero
 @pytest.mark.parametrize('ano, cargo, agregacao_regional',
