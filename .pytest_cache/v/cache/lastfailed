@@ -1,0 +1,20 @@
+{
+  "test.py::test_cepespdata[2006-1-6]": true,
+  "test.py::test_cepespdata[2006-6-6]": true,
+  "test.py::test_cepespdata[2010-1-6]": true,
+  "test.py::test_cepespdata[2010-3-6]": true,
+  "test.py::test_cepespdata[2010-6-6]": true,
+  "test.py::test_cepespdata[2014-3-6]": true,
+  "test.py::test_cepespdata[2014-6-6]": true,
+  "test.py::test_cepespdata[2018-1-6]": true,
+  "test_mun.py::test_cepespdata[2000-11-6]": true,
+  "test_mun.py::test_cepespdata[2000-13-6]": true,
+  "test_mun.py::test_cepespdata[2004-11-6]": true,
+  "test_mun.py::test_cepespdata[2004-13-6]": true,
+  "test_mun.py::test_cepespdata[2008-11-6]": true,
+  "test_mun.py::test_cepespdata[2008-13-6]": true,
+  "test_mun.py::test_cepespdata[2012-11-6]": true,
+  "test_mun.py::test_cepespdata[2012-13-6]": true,
+  "test_mun.py::test_cepespdata[2016-11-6]": true,
+  "test_mun.py::test_cepespdata[2016-13-6]": true
+}
