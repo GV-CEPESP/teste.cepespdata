@@ -1,12 +1,18 @@
 [
-  "test_mun.py::test_cepespdata[2000-11-6]",
-  "test_mun.py::test_cepespdata[2000-13-6]",
-  "test_mun.py::test_cepespdata[2004-11-6]",
-  "test_mun.py::test_cepespdata[2004-13-6]",
-  "test_mun.py::test_cepespdata[2008-11-6]",
-  "test_mun.py::test_cepespdata[2008-13-6]",
-  "test_mun.py::test_cepespdata[2012-11-6]",
-  "test_mun.py::test_cepespdata[2012-13-6]",
-  "test_mun.py::test_cepespdata[2016-11-6]",
-  "test_mun.py::test_cepespdata[2016-13-6]"
+  "test.py::test_cepespdata[2006-1-6]",
+  "test.py::test_cepespdata[2006-3-6]",
+  "test.py::test_cepespdata[2006-5-6]",
+  "test.py::test_cepespdata[2006-6-6]",
+  "test.py::test_cepespdata[2010-1-6]",
+  "test.py::test_cepespdata[2010-3-6]",
+  "test.py::test_cepespdata[2010-5-6]",
+  "test.py::test_cepespdata[2010-6-6]",
+  "test.py::test_cepespdata[2014-1-6]",
+  "test.py::test_cepespdata[2014-3-6]",
+  "test.py::test_cepespdata[2014-5-6]",
+  "test.py::test_cepespdata[2014-6-6]",
+  "test.py::test_cepespdata[2018-1-6]",
+  "test.py::test_cepespdata[2018-3-6]",
+  "test.py::test_cepespdata[2018-5-6]",
+  "test.py::test_cepespdata[2018-6-6]"
 ]
